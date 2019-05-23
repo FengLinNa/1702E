@@ -9,6 +9,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const bodyParser = require('body-parser')
+const md5 = require('md5')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -27,6 +29,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       rewrites: [
         { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
       ],
+    },
+    before(app){
+      app.post('/login', bodyParser.json(), (req, res, next)=>{
+        console.log('req.body...', req.body);
+        res.json({
+          token: `${md5(req.body.username+req.body.password)}`
+        })
+      })
     },
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import {getToken} from '@/utils'
 
 // 一级路由
 import Login from '@/views/login/'
@@ -14,7 +15,7 @@ import My from '@/views/home/my'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/login',
@@ -41,6 +42,7 @@ export default new Router({
         component: Cinema
       }, {
         path: '/home/my',
+        name: 'My',
         component: My
       }]
     },
@@ -50,3 +52,25 @@ export default new Router({
     }
   ]
 })
+
+// 路由跳转前
+router.beforeEach((to, from ,next)=>{
+  console.log('to...', to, from);
+  // 在去我的页面之前判断是否登陆
+  if (to.path == '/home/my'){
+    if (getToken()){
+      next();
+    }else{
+      next('/login')
+    }
+  }else{
+    next();
+  }
+})
+
+// 路由跳转后
+router.afterEach((to, from)=>{
+  console.log(2334);
+})
+
+export default router;
