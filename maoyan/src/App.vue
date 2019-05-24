@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <keep-alive include="City">
+      <router-view/>
+    </keep-alive>
   </div>
 </template>
 
@@ -21,6 +23,9 @@ body{
   margin: 0;
   padding: 0;
   border: none;
+}
+li,ul{
+  list-style: none;
 }
 html,body,#app, #app>div{
   height: 100%;

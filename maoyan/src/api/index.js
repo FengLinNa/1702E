@@ -22,3 +22,10 @@ export function getExpectList(params){
   return fetch(`/api/ajax/mostExpected?ci=1&limit=10&offset=${params.offset}&token`)
   .then(response => response.json())
 }
+
+
+// 获取城市列表
+export function getCityList(){
+  return fetch('/api/dianying/cities.json')
+  .then(response => response.json())
+}

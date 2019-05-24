@@ -6,6 +6,7 @@ import {getToken} from '@/utils'
 // 一级路由
 import Login from '@/views/login/'
 import Home from '@/views/home/'
+import City from '@/views/city/'
 
 // 二级路由
 import Movie from '@/views/home/movie'
@@ -27,6 +28,11 @@ let router = new Router({
       component: Login
     },
     {
+      path: '/city',
+      name: 'City',
+      component: City
+    },
+    {
       path: '/home',
       name: 'Home',
       component: Home,
@@ -34,9 +40,11 @@ let router = new Router({
       children: [{
         path: '/home/movie',
         redirect: '/home/movie/hot',
+        name: 'Movie',
         component: Movie,
         children: [{
           path: 'hot',
+          name: 'Hot',
           component: Hot
         }, {
           path: 'will',

@@ -2,7 +2,7 @@
   <div class="wrap">
     <h2>猫眼电影</h2>
     <nav>
-      <span>北京</span>
+      <span class="location" @click="goLocation">{{location}}</span>
       <span @click="changeRouter('/home/movie/hot')" :class="{active: path=='/home/movie/hot'}">正在热映</span>
       <span @click="changeRouter('/home/movie/will')" :class="path=='/home/movie/will'?'active':''">即将上映</span>
       <i></i>
@@ -17,19 +17,40 @@
 export default {
   data(){
     return {
+      location: '北京',
       path: '/home/movie/hot'
     }
   },
   methods: {
     changeRouter(path){
       this.path = path;
-      this.$router.replace(path)
+      this.$router.replace(path);
+    },
+    goLocation(){
+      this.$router.push({path: '/city', query: {location: this.location}});
     }
+  },
+  mounted(){
+    let location = this.$route.params.city || window.localStorage.getItem('city');
+    location && (this.location = location);
+    console.log(this.$route, 'route');
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.location{
+  &:after{
+    content: '';
+    display: inline-block;
+      width: 0;
+      height: 0;
+      border-left: .12rem solid transparent;
+      border-right: .12rem solid transparent;
+      border-top: .12rem solid #999;
+      margin-left: .05rem;
+  }
+}
 .wrap{
   height: 100%;
   display: flex;
