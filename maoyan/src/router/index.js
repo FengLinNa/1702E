@@ -12,6 +12,10 @@ import Movie from '@/views/home/movie'
 import Cinema from '@/views/home/cinema'
 import My from '@/views/home/my'
 
+// 三级路由
+import Hot from '@/views/home/movie/hot'
+import Will from '@/views/home/movie/will'
+
 
 Vue.use(Router)
 
@@ -29,14 +33,15 @@ let router = new Router({
       redirect: '/home/movie',
       children: [{
         path: '/home/movie',
+        redirect: '/home/movie/hot',
         component: Movie,
-        // children: [{
-        //   path: '/',
-        //   component: Hot
-        // }, {
-        //   path: 'will',
-        //   component: Will
-        // }]
+        children: [{
+          path: 'hot',
+          component: Hot
+        }, {
+          path: 'will',
+          component: Will
+        }]
       }, {
         path: '/home/cinema',
         component: Cinema

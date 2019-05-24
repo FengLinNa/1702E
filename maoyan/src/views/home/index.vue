@@ -56,6 +56,7 @@ export default {
   }
   section{
     flex: 1;
+    overflow: scroll;
   }
 }
 

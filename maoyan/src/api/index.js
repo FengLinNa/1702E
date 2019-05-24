@@ -8,3 +8,10 @@ export function doLogin(params){
     }
   }).then(response => response.json())
 }
+
+
+// 获取正在热映
+export function getHotList(){
+  return fetch('/api/ajax/movieOnInfoList')
+  .then(response => response.json())
+}

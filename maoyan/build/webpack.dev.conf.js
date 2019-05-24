@@ -48,7 +48,19 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       ? { warnings: false, errors: true }
       : false,
     publicPath: config.dev.assetsPublicPath,
-    proxy: config.dev.proxyTable,
+    proxy: {
+      // 'http://m.maoyan.com/ajax/movieOnInfoList' => '/api/ajax/movieOnInfoList'
+      '/api':{
+        // 要访问的实际域名
+        target: 'http://m.maoyan.com',
+        // 是否要跨域
+        changeOrigin: true,
+        // 在地址里去掉/api
+        pathRewrite: {
+          '/api': ''
+        }
+      }
+    },
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
