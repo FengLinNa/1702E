@@ -8,7 +8,7 @@
         <p>{{item.star}}</p>
         <p>{{item.showInfo}}</p>
       </div>
-      <button>购票</button>
+      <button :class="item.globalReleased?'purchase':'pre'">{{item.globalReleased?'购票':'预售'}}</button>
     </li>
   </ul>
 </template>
@@ -41,8 +41,17 @@ li{
   padding: .24rem .54rem .24rem .3rem;
   width: 100%;
   box-sizing: border-box;
+  border-bottom: 1px solid #eee;
+  &:last-child{
+    border: none;
+  }
   img{
     width: 1.28rem;
+  }
+  button{
+    width: .94rem;
+    height: .54rem;
+    border-radius: .06rem;
   }
 }
 div{
@@ -50,11 +59,39 @@ div{
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
+  // flex: 1;
+  width: 4rem;
+  box-sizing: border-box;
+  padding-left: .2rem;
+  height: 1.8rem;
+  p{
+    width: 100%;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
   p:nth-child(1){
     font-size: .34rem;
     color: #333;
     font-weight: 700;
     padding-right: .01rem;
   }
+  p:nth-child(2){
+    font-size: .28rem;
+    color: #777;
+  }
+  p:nth-child(3), p:nth-child(4){
+    font-size: .26rem;
+    color: #666;
+  }
+}
+.purchase{
+  color: #fff;
+  background: #f03d37;
+}
+.pre{
+  color: #fff;
+  background: #3c9fe6;
 }
 </style>

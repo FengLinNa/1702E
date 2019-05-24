@@ -20,6 +20,7 @@ body{
 *{
   margin: 0;
   padding: 0;
+  border: none;
 }
 html,body,#app, #app>div{
   height: 100%;
