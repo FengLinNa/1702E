@@ -1,6 +1,6 @@
 <template>
   <ul>
-     <li v-for="(item, index) in list" :key="index">
+     <li v-for="(item, index) in list" :key="index" @click.stop.prevent="goDetail(item.id)">
       <img :src="item.img">
       <div>
         <p>{{item.nm}}</p>
@@ -19,6 +19,13 @@ export default {
     movieList: {
       type: Array,  // 要传递过来props的类型
       default: []   // 如果没传使用的默认值
+    }
+  },
+  methods: {
+    goDetail(id){
+      console.log('id...', id);
+      // 跳转动态路由
+      this.$router.push({path: `/detail/${id}`, query: {}})
     }
   },
   computed: {

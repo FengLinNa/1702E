@@ -29,3 +29,10 @@ export function getCityList(){
   return fetch('/api/dianying/cities.json')
   .then(response => response.json())
 }
+
+
+// 获取影片详情
+export function getMovieDetail(id){
+  return fetch('/api/ajax/detailmovie?movieId='+id)
+  .then(response => response.json())
+}

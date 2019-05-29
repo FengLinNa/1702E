@@ -7,6 +7,7 @@ import {getToken} from '@/utils'
 import Login from '@/views/login/'
 import Home from '@/views/home/'
 import City from '@/views/city/'
+import Detail from '@/views/detail/'
 
 // 二级路由
 import Movie from '@/views/home/movie'
@@ -21,6 +22,8 @@ import Will from '@/views/home/movie/will'
 Vue.use(Router)
 
 let router = new Router({
+  // 切换路由模式 history | hash
+  mode: 'history',
   routes: [
     {
       path: '/login',
@@ -31,6 +34,10 @@ let router = new Router({
       path: '/city',
       name: 'City',
       component: City
+    },{
+      path: '/detail/:id?',
+      name: 'Detail',
+      component: Detail
     },
     {
       path: '/home',
