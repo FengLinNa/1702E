@@ -15,7 +15,11 @@ export default {
     Right
   },
   created(){
-    this.$store.dispatch('left/getData');
+    // 提交action获取数据
+    this.$store.dispatch('left/getData').then(res=>{
+       // 触发右边的click第一项
+      this.$store.commit('right/click', 1);
+    })
   }
 }
 </script>

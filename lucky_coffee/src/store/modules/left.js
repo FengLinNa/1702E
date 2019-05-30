@@ -18,10 +18,17 @@ const mutations = {
 // 异步数据改变
 const actions = {
   getData({commit}, payload){
-    getData().then(res=>{
-      console.log('res...', res);
-      commit('updateList', res.list);
-      commit('right/updateTotal');
+    // 返回promise，控制action的状态
+    return new Promise((resolve, reject)=>{
+      getData().then(res=>{
+        console.log('res...', res);
+        // 提交局部mutation
+        commit('updateList', res.list);
+        // 提交全局mutation
+        commit('right/updateTotal', res.total, {root:true});
+        // 修改action的状态
+        resolve();
+      })
     })
   }
 }
