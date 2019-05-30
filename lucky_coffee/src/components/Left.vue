@@ -14,9 +14,16 @@ export default {
       return this.$store.state.left.curId
     }
   },
+  created(){
+    // 触发右边的click
+    this.$store.commit('right/click', 1);
+  },
   methods: {
     click(id){
-      this.$store.commit('click', id);
+      // 触发左边的click
+      this.$store.commit('left/click', id);
+      // 触发右边的click
+      this.$store.commit('right/click', id);
     }
   }
 }
