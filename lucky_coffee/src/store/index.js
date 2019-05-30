@@ -15,5 +15,11 @@ export default new Vuex.Store({
     left,
     right
   },
+  state:{a:1,b:2},
+  getters: {c(){
+    return undefined;
+  }},
+  actions: {},
+  mutations: {},
   plugins: [Logger()]
 })

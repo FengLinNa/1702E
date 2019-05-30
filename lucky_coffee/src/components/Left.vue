@@ -5,25 +5,35 @@
 </template>
 
 <script>
+import {mapState, mapGetters, mapMutations, mapActions} from 'vuex';
 export default {
   computed: {
-    list(){
-      return this.$store.state.left.list
-    },
-    curId(){
-      return this.$store.state.left.curId
-    }
+    ...mapState({
+      list: state=>state.left.list,
+      curId: state=>state.left.curId
+    }),
+    // list(){
+    //   return this.$store.state.left.list
+    // },
+    // curId(){
+    //   return this.$store.state.left.curId
+    // }
   },
   created(){
-    // 触发右边的click
-    this.$store.commit('right/click', 1);
+
   },
   methods: {
+    ...mapMutations({
+      leftClick: 'left/click',
+      rightClick: 'right/click'
+    }),
     click(id){
       // 触发左边的click
-      this.$store.commit('left/click', id);
+      this.leftClick(id);
+      // this.$store.commit('left/click', id);
       // 触发右边的click
-      this.$store.commit('right/click', id);
+      this.rightClick(id);
+      // this.$store.commit('right/click', id);
     }
   }
 }

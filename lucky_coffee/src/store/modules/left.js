@@ -5,6 +5,11 @@ const state = {
   curId: 1
 }
 
+// 由state派生出来的数据
+const getters = {
+
+}
+
 // 同步数据改变
 const mutations = {
   click(state, payload){
@@ -17,7 +22,7 @@ const mutations = {
 
 // 异步数据改变
 const actions = {
-  getData({commit}, payload){
+  async getData({commit}, payload){
     // 返回promise，控制action的状态
     return new Promise((resolve, reject)=>{
       getData().then(res=>{
@@ -36,6 +41,7 @@ const actions = {
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations
 }
