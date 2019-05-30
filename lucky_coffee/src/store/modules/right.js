@@ -218,8 +218,9 @@ const state = {
 const mutations = {
   click(state, payload) {
     state.cur = state.total.filter(item=>item.type==payload);
-    console.log(123);
-    // state.curId = payload
+  },
+  updateTotal(state, payload){
+    state.total = payload;
   }
 }
 

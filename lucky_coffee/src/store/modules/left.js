@@ -1,37 +1,34 @@
-const state = {
-  list: [{
-      "id": "1",
-      "item": "大师咖啡"
-    },
-    {
-      "id": "2",
-      "item": "零度拿铁"
-    }, {
-      "id": "3",
-      "item": "纳瑞冰"
-    }, {
-      "id": "4",
-      "item": "经典饮品"
+import {getData} from '../../api/index'
 
-    }, {
-      "id": "5",
-      "item": "健康轻饮"
-    }, {
-      "id": "6",
-      "item": "鲜榨果蔬汁"
-    }
-  ],
+const state = {
+  list: [],
   curId: 1
 }
 
+// 同步数据改变
 const mutations = {
   click(state, payload){
     state.curId = payload
+  },
+  updateList(state, payload){
+    state.list = payload;
+  }
+}
+
+// 异步数据改变
+const actions = {
+  getData({commit}, payload){
+    getData().then(res=>{
+      console.log('res...', res);
+      commit('updateList', res.list);
+      commit('right/updateTotal');
+    })
   }
 }
 
 export default {
   namespaced: true,
   state,
+  actions,
   mutations
 }

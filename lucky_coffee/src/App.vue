@@ -13,6 +13,9 @@ export default {
   components: {
     Left,
     Right
+  },
+  created(){
+    this.$store.dispatch('left/getData');
   }
 }
 </script>

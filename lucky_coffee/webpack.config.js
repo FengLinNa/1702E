@@ -1,5 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
+var fs = require('fs');
+
+const data = require('./data.json');
 
 module.exports = {
   entry: './src/main.js',
@@ -78,7 +81,12 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    before(app){
+      app.get('/api/data', (req, res, next)=>{
+        res.json(data);
+      })
+    }
   },
   performance: {
     hints: false

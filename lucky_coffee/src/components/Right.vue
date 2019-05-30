@@ -1,6 +1,6 @@
 <template>
   <div>
-    <li v-for="(item) in list" :key="item.id" @click="click(item.id)" :class="{active: item.id==curId}">
+    <li v-for="(item) in list" :key="item.id" @click="click(item.id)">
       <img :src="item.img" alt="">
       <div>
         <p>{{item.title}}</p>
