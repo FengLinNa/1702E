@@ -1,5 +1,8 @@
 var path = require('path')
+var fs = require('fs')
 var webpack = require('webpack')
+var bodyParser = require('body-parser')
+const data = require('./data.json')
 
 module.exports = {
   entry: './src/main.js',
@@ -79,7 +82,57 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    overlay: true,
+    before(app){
+      // 获取用户列表
+      app.get('/user/list', (req, res, next)=>{
+        let data = fs.readFileSync('./data.json');
+        data = JSON.parse(data);
+        res.json({
+          code: 1,
+          data
+        })
+      })
+      // 删除用户
+      app.delete('/user/delete', bodyParser.json(), (req, res, next)=>{
+        let id = req.body.id;
+        let data = fs.readFileSync('./data.json');
+        data = JSON.parse(data);
+        let index = data.findIndex(item=>item.id==id);
+        data.splice(index, 1);
+        fs.writeFileSync('./data.json', JSON.stringify(data));
+        res.json({
+          code: 1
+        })
+      })
+      // 添加用户
+      app.post('/user/add', bodyParser.json(), (req, res, next)=>{
+        let {name, className} = req.body;
+        let data = fs.readFileSync('./data.json');
+        data = JSON.parse(data);
+        data.push({
+          id: data.length+1,
+          name,
+          className
+        })
+        fs.writeFileSync('./data.json', JSON.stringify(data));
+        res.json({
+          code: 1
+        })
+      })
+      // 修改用户
+      app.put('/user/update', bodyParser.json(), (req, res, next)=>{
+        let id = req.body.id;
+        let data = fs.readFileSync('./data.json');
+        data = JSON.parse(data);
+        let index = data.findIndex(item=>item.id==id);
+        data[index] = {...data[index], ...req.body}
+        fs.writeFileSync('./data.json', JSON.stringify(data));
+        res.json({
+          code: 1
+        })
+      })
+    }
   },
   performance: {
     hints: false
